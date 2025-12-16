@@ -1,0 +1,20 @@
+.cardd {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.payment-icons {
+    display: flex;
+    flex-wrap: wrap; /* Wraps icons to the next line if needed */
+    gap: 15px; /* Adds space between icons */
+    justify-content: center; /* Centers icons horizontally */
+}
+
+.payment-img {
+    flex: 0 0 auto; /* Prevents shrinking of individual icons */
+}
+
+.payment-icon {
+    width: 50px;
+    height: auto;
+}

@@ -1,0 +1,544 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+/* ===========================
+   MERGED FULL CSS — base + "road" timeline
+   (Your original stylesheet updated to use a full moving-road
+    timeline. Replace your timeline markup with the road-timeline
+    HTML provided previously.)
+   =========================== */
+
+/* ===========================
+   Colors & variables
+   =========================== */
+:root{
+  --fedex-purple: #4d148c;
+  --fedex-purple-600: #391064;
+  --fedex-orange: #ff6600;
+  --muted: #6c757d;
+  --muted-2: #98a1b3;
+  --surface: #ffffff;
+  --bg: linear-gradient(180deg,#f6f9ff 0%,#ffffff 100%);
+  --card-elevation-1: 0 6px 18px rgba(12,37,63,0.06);
+  --card-elevation-2: 0 18px 48px rgba(10,20,40,0.12);
+  --focus-ring: 4px solid rgba(77,20,140,0.12);
+  --radius: 14px;
+  --mobile-radius: 10px;
+  --touch-min: 48px;
+  --max-width: 1100px;
+  --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --transition-quick: 180ms cubic-bezier(.2,.9,.25,1);
+  --success: #4d148c;            /* accent used for timeline/progress */
+  --success-600:#4d148c;
+  --timeline-track: #e9f6ed;     /* faint track fallback */
+  /* road timeline specifics */
+  --road-width: 12px;
+  --road-stripe: 8px;
+}
+
+/* ===========================
+   Base / Reset
+   =========================== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
+  color: #071022;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+  font-size: clamp(14px, 1.6vw, 16px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Links & utilities */
+a { color: inherit; text-decoration: none; }
+a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outline: none; }
+.hidden { display: none !important; }
+.visually-hidden { position: absolute !important; height: 1px; width:1px; overflow:hidden; clip: rect(1px,1px,1px,1px); white-space:nowrap; }
+
+/* ===========================
+   Layout helpers
+   =========================== */
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 16px; }
+
+/* ===========================
+   Header (kept lean)
+   =========================== */
+.site-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background: linear-gradient(180deg, var(--fedex-purple), var(--fedex-purple-600));
+  color: #ffffff;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(12,37,63,0.08);
+}
+.site-header .logo { height: 34px; width: auto; display:block; }
+.site-header .controls { display:flex; gap:12px; align-items:center; font-size:.95rem; }
+
+/* ===========================
+   Hero / Tracking Card
+   =========================== */
+.hero {
+  min-height: calc(100vh - 128px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 28px 12px;
+}
+.tracking-card{
+  width:100%;
+  max-width: 920px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-radius: var(--radius);
+  box-shadow: var(--card-elevation-2);
+  padding: clamp(18px, 3.2vw, 30px);
+  text-align:center;
+  margin: 0 12px;
+  transition: transform var(--transition-quick), box-shadow var(--transition-quick);
+  border: 1px solid rgba(13,37,63,0.04);
+  will-change: transform;
+}
+.tracking-card:active{ transform: translateY(1px); }
+
+/* Titles */
+.tracking-card h1 {
+  margin: 0 0 8px 0;
+  color: var(--fedex-purple);
+  font-size: clamp(1.15rem, 2.8vw, 1.6rem);
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.tracking-card .lead {
+  margin: 0 0 14px 0;
+  color: var(--muted);
+  font-size: .98rem;
+}
+
+/* Tracking form */
+.track-form {
+  width:100%;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  flex-wrap:wrap;
+}
+.track-form .form-control {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid rgba(15,23,32,0.06);
+  background: #fff;
+  padding: 14px 16px;
+  font-size: 1.03rem;
+  border-radius: 12px;
+  min-height: var(--touch-min);
+  box-shadow: var(--card-elevation-1);
+  transition: border-color .15s ease, box-shadow .15s ease, transform .12s ease;
+  flex: 1 1 420px;
+  max-width: 720px;
+  width:100%;
+  outline: none;
+}
+.track-form .form-control::placeholder { color: var(--muted-2); opacity: 1; }
+.track-form .form-control:focus { box-shadow: var(--focus-ring); border-color: rgba(34,139,34,0.18); }
+
+/* Button */
+.btn-track {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-content:center;
+  padding: 0 18px;
+  min-height: var(--touch-min);
+  height: 56px;
+  background: linear-gradient(180deg, var(--fedex-purple), var(--fedex-purple-600));
+  color: #fff;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(77,20,140,0.12);
+  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+  font-size: 1rem;
+  touch-action: manipulation;
+  flex: 0 0 auto;
+}
+.btn-track i { font-size: 1.05rem; line-height:1; }
+.btn-track:active { transform: translateY(1px) scale(.998); box-shadow: 0 6px 18px rgba(77,20,140,0.10); }
+.btn-track[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* hint */
+.hint { margin-top: 10px; font-size: .92rem; color: var(--muted); }
+
+/* ===========================
+   Content / Timeline / Summary
+   =========================== */
+.tracking-main { max-width: 1100px; margin: 20px auto; padding: 0 16px 40px; }
+.grid-row { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+.left { flex: 1 1 62%; min-width: 280px; }
+.right { flex: 0 0 32%; min-width: 240px; }
+
+/* timeline container header */
+.timeline-wrap {
+  position: relative;
+  padding-left: 56px;
+  background: transparent; /* timeline sits on page bg for better depth */
+  border-radius: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.timeline-wrap h5 { margin: 0 0 12px 0; font-size: 1rem; color: #0f1720; font-weight:700; }
+
+/* ===========================
+   ROAD TIMELINE (full "moving road" design)
+   ===========================
+   Replace your existing timeline HTML with the "road" markup:
+   <div class="road-timeline-wrap"> ... see docs from example ... </div>
+*/
+
+/* layout for road timeline: two columns (track + steps) */
+.road-timeline-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr; /* track column + steps column */
+  gap: 18px;
+  align-items: start;
+  padding: 8px 12px;
+  min-height: 160px;
+}
+
+/* vertical track (the "road") */
+.road-track {
+  grid-column: 1 / 2;
+  position: relative;
+  width: var(--road-width);
+  margin: 6px 0;
+  align-self: stretch;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(11,12,20,0.04), rgba(11,12,20,0.02));
+  display:block;
+  min-height: 60vh; /* fallback; JS will adapt */
+}
+
+/* empty track pattern (muted) */
+.road-track::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,0.06) 0 var(--road-stripe),
+      rgba(255,255,255,0.00) var(--road-stripe) calc(var(--road-stripe) * 2)
+    ),
+    linear-gradient(180deg, rgba(7,16,34,0.04), rgba(7,16,34,0.02));
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* animated progress fill — full-color road for completed portion */
+.road-progress{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:0%;
+  z-index:1;
+  transform-origin: top;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(13,18,40,0.08) inset;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,0.06) 0 var(--road-stripe),
+      rgba(255,255,255,0.00) var(--road-stripe) calc(var(--road-stripe) * 2)
+    ),
+    linear-gradient(180deg, var(--fedex-purple) 0%, var(--fedex-purple-600) 100%);
+  animation: road-slide 1.6s linear infinite;
+  transition: height 480ms cubic-bezier(.22,.9,.25,1);
+}
+
+/* subtle movement of the road stripes */
+@keyframes road-slide {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 30px, 0 0; }
+}
+
+/* steps column */
+.road-steps {
+  grid-column: 2 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 2;
+}
+
+/* each step row */
+.road-steps li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  position: relative;
+  padding-right: 12px;
+}
+
+/* dot that sits beside the road - visually aligned over track */
+.road-steps .dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid rgba(11,12,20,0.06);
+  box-shadow: 0 10px 30px rgba(6,12,20,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-left: -56px; /* overlap so it visually sits above the track */
+  z-index: 3;
+  flex-shrink: 0;
+  transition: transform 220ms var(--transition-quick), box-shadow 220ms var(--transition-quick);
+  font-weight:700;
+  color: #071022;
+}
+
+/* dot variants */
+.road-steps .dot.completed {
+  background: #320951;
+  border-color: rgba(0,0,0,0.06);
+  color: #fff;
+  transform: scale(1.06);
+  box-shadow: 0 14px 40px rgba(77,20,140,0.14);
+}
+.road-steps .dot.inprogress {
+  background: linear-gradient(180deg, var(--fedex-purple-600), var(--fedex-purple));
+  color: #fff;
+  border-color: rgba(0,0,0,0.06);
+  transform: scale(1.08);
+  box-shadow: 0 18px 48px rgba(77,20,140,0.18);
+}
+.road-steps .dot.pending {
+  background: var(--surface);
+  color: var(--muted-2);
+}
+
+/* step content card */
+.road-steps .step-body {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: var(--card-elevation-1);
+  border: 1px solid rgba(11,12,20,0.04);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.road-steps .step-title { font-weight: 700; color: #071022; margin-bottom: 6px; }
+.road-steps .step-meta { font-size: 0.88rem; color: var(--muted); }
+
+/* tick marker aligned with each dot (small rectangle sticking into the road) */
+.road-steps .tick {
+  position: absolute;
+  left: -18px; /* place it over the road surface */
+  top: 12px;
+  width: 10px;
+  height: 6px;
+  border-radius: 2px;
+  background: rgba(11,12,20,0.06);
+  z-index: 2;
+  transition: background 320ms ease, transform 220ms ease;
+}
+.road-steps .tick.completed { background: rgba(255,255,255,0.18); transform: translateX(-2px); }
+
+/* small mobile adjustments */
+@media (max-width: 720px) {
+  .road-timeline-wrap { grid-template-columns: 48px 1fr; gap: 12px; }
+  .road-track { width: 10px; border-radius: 8px; min-height: 36vh; }
+  .road-progress { border-radius: 8px; }
+  .road-steps .dot { width: 34px; height: 34px; margin-left: -48px; }
+  .road-steps .tick { left: -16px; }
+  .road-steps .step-body { padding: 10px 12px; border-radius: 10px; }
+}
+
+/* ===========================
+   Legacy timeline selectors (kept for backward compatibility)
+   If you still use the old `.timeline` markup, these rules remain.
+   If you switch fully to the road markup, you may remove them.
+   =========================== */
+
+/* track (vertical line) */
+.timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 12px;
+  bottom: 12px;
+  color: #4d148c;
+  width: 8px;
+  background: var(--timeline-track);
+  border-radius: 6px;
+  transform-origin: top;
+  box-shadow: inset 0 2px 6px rgba(35,155,76,0.05);
+}
+.timeline .progress-line {
+  position:absolute;
+  left: 32px;
+  top: 12px;
+  width: 8px;
+  background: linear-gradient(180deg, var(--success), var(--success-600));
+  border-radius: 6px;
+  height:0%;
+  z-index: 2;
+  transition: height 420ms cubic-bezier(.22,.95,.28,1);
+  transform-origin: top;
+  box-shadow: 0 6px 20px rgba(35,155,76,0.12);
+}
+
+/* items */
+.timeline li { display:flex; gap:18px; margin: 18px 0; position: relative; padding-right: 12px; align-items:flex-start; }
+.timeline .dot {
+  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background: var(--surface); border: 2px solid rgba(15,23,32,0.06); z-index:3;
+  box-shadow: 0 8px 26px rgba(6,12,20,0.08);
+  flex-shrink:0;
+  transition: transform var(--transition-quick), box-shadow var(--transition-quick);
+}
+.timeline .dot i { font-size: 1.05rem; color: #fff; }
+
+/* states */
+.timeline .dot.completed {
+  background: var(--success);
+  border-color: var(--success);
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(35, 41, 155, 0.14);
+}
+.timeline .dot.inprogress {
+  background: linear-gradient(180deg, var(--success-600), var(--success));
+  border-color: rgba(0,0,0,0.06);
+  color: #fff;
+  box-shadow: 0 12px 36px rgba(35,155,76,0.16);
+  transform: scale(1.06);
+}
+.timeline .dot.pending { background: var(--surface); color: var(--muted-2); }
+
+/* step body - 3D-ish elevated mini card */
+.timeline .step-body {
+  background: linear-gradient(180deg,#ffffff,#f9fffb);
+  padding: 14px;
+  border-radius: 12px;
+  display:block;
+  min-width: 0;
+  box-shadow: 0 18px 40px rgba(6,12,20,0.06);
+  border: 1px solid rgba(13,37,63,0.03);
+  transition: transform 220ms var(--transition-quick), box-shadow 220ms var(--transition-quick);
+  transform-origin: left center;
+}
+.timeline li:hover .step-body { transform: translateY(-4px); box-shadow: 0 28px 60px rgba(6,12,20,0.10); }
+
+/* text */
+.step-body > div:first-child { font-weight: 700; font-size: 0.98rem; color: #071022; }
+.step-body .time { font-size: 0.88rem; color: var(--muted); margin-top:8px; }
+
+/* ===========================
+   SUMMARY (3D card)
+   =========================== */
+.summary {
+  position: relative;
+  padding: 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg,#ffffff,#f5fbff);
+  box-shadow:
+    0 28px 70px rgba(6,12,20,0.14),
+    0 12px 32px rgba(6,12,20,0.08);
+  border: 1px solid rgba(13,37,63,0.045);
+  transform-style: preserve-3d;
+}
+
+/* subtle front bevel */
+.summary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 30%);
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+/* depth strip */
+.summary::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -8px;
+  height: 12px;
+  border-radius: 10px;
+  filter: blur(12px);
+  background: linear-gradient(90deg, rgba(35,155,76,0.12), rgba(17,59,105,0.06));
+  z-index: -1;
+}
+
+/* content above pseudo layers */
+.summary > * { position: relative; z-index: 1; }
+
+/* shipment number & copy */
+#shipment-number { font-weight: 700; color: #0b1320; font-size: .95rem; }
+.copy-btn {
+  display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px;
+  border-radius:10px; border:1px solid rgba(15,23,32,0.06); background: #fff;
+  cursor:pointer; box-shadow: 0 8px 20px rgba(6,12,20,0.06);
+}
+
+/* est delivery style (keep accent if needed) */
+.est-delivery { color: var(--fedex-orange); font-weight:800; font-size:1.06rem; }
+
+/* not-found */
+.not-found { padding:12px; background:#fff6f6; color:#842029; border:1px solid #f5c2c7; border-radius:10px; margin-top:12px; }
+
+/* ===========================
+   Responsiveness (mobile-fit)
+   =========================== */
+@media (max-width: 900px) {
+  .tracking-card { padding: 16px; }
+  .hero { padding: 20px 10px; min-height: calc(100vh - 150px); }
+  .timeline .step-body { padding: 12px; }
+}
+
+@media (max-width: 720px) {
+  .track-form { flex-direction: column; align-items: stretch; gap: 12px; }
+  .track-form .form-control { max-width:100%; width:100%; flex:1 1 auto; }
+  .btn-track { width:100%; min-height: 54px; height: auto; }
+  .grid-row { flex-direction: column; }
+  .left, .right { width:100%; flex: 1 1 100%; }
+  .timeline-wrap { padding-left: 28px; }
+  .timeline::before, .timeline .progress-line { left: 22px; width: 8px; }
+  .timeline li { margin: 12px 0; gap: 12px; }
+  .timeline .dot { width: 34px; height: 34px; }
+  .summary { border-radius: 14px; padding: 16px; }
+}
+
+/* ===========================
+   Accessibility: reduce motion
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+  .road-progress,
+  .timeline li,
+  .timeline .step-body,
+  .progress-line { transition: none !important; animation: none !important; transform: none !important; }
+}
