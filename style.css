@@ -191,7 +191,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
 /* timeline container header */
 .timeline-wrap {
   position: relative;
-  color: #320951;
+  color: var(--fedex-purple);
   padding-left: 56px;
   background: transparent; /* timeline sits on page bg for better depth */
   border-radius: 12px;
@@ -276,7 +276,6 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   from { background-position: 0 0, 0 0; }
   to   { background-position: 0 30px, 0 0; }
 }
-
 
 /* steps column */
 .road-steps {
@@ -544,56 +543,91 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   .timeline .step-body,
   .progress-line { transition: none !important; animation: none !important; transform: none !important; }
 }
-/* Fix for oversized tracking input on iOS / mobile */
-input#tracking-input.form-control,
-input.form-control[type="text"] {
-  box-sizing: border-box;
+/* --- Tracking form: compact, aligned, mobile-fit --- */
+form#track-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
   width: 100%;
   max-width: 100%;
-  display: block;
+}
 
-  /* Prevent iOS Safari auto-zoom (keep at least 16px) */
-  font-size: 16px;
+/* Input: prevents iOS zoom and keeps a sensible height */
+form#track-form input#tracking-input.form-control {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;                  /* allow flex children to shrink correctly */
+  flex: 1 1 auto;                /* grow to fill remaining space */
+  width: 100%;
+  font-size: 16px;               /* prevents Safari auto-zoom on focus */
   -webkit-text-size-adjust: 100%;
-
-  /* Comfortable touch size but not oversized */
-  height: 44px;        /* Apple recommends 44px touch targets */
+  height: 44px;                  /* comfortable touch target */
   min-height: 44px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   line-height: 1.15;
   border-radius: 10px;
   border: 1px solid rgba(15,23,32,0.06);
   background: #fff;
   color: #071022;
   transition: box-shadow .16s ease, transform .12s ease;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
-/* Focus state (keeps UX accessible) */
-input#tracking-input.form-control:focus,
-input.form-control[type="text"]:focus {
+/* Button: match input height and keep compact on small screens */
+form#track-form button#track-btn.btn-track {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  gap: 8px;
+  box-shadow: 0 8px 22px rgba(77,20,140,0.08);
+  white-space: nowrap;
+}
+
+/* Icon inside button */
+form#track-form button#track-btn.btn-track > i {
+  font-size: 1rem;
+  line-height: 1;
+  margin-right: 6px;
+}
+
+/* Focus states (optional but nice) */
+form#track-form input#tracking-input.form-control:focus {
   outline: none;
   box-shadow: 0 6px 20px rgba(77,20,140,0.08);
   border-color: rgba(77,20,140,0.18);
 }
 
-/* When the form stacks on small screens, ensure spacing */
-@media (max-width: 720px) {
-  input#tracking-input.form-control,
-  input.form-control[type="text"] {
-    height: 44px;
-    padding: 10px 12px;
-    font-size: 16px; /* keep at 16px to avoid zoom */
-    border-radius: 10px;
+/* Stack on narrow screens */
+@media (max-width: 600px) {
+  form#track-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  form#track-form input#tracking-input.form-control,
+  form#track-form button#track-btn.btn-track {
+    width: 100%;
+    flex: none;
+  }
+  form#track-form button#track-btn.btn-track {
+    margin-top: 8px;
   }
 }
 
 /* Extra narrow phones */
 @media (max-width: 360px) {
-  input#tracking-input.form-control,
-  input.form-control[type="text"] {
+  form#track-form input#tracking-input.form-control {
     padding: 9px 10px;
     height: 44px;
+  }
+  form#track-form button#track-btn.btn-track {
+    padding: 0 12px;
+    height: 42px;
+    min-height: 42px;
   }
 }
