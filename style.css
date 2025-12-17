@@ -191,6 +191,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
 /* timeline container header */
 .timeline-wrap {
   position: relative;
+  color: #320951;
   padding-left: 56px;
   background: transparent; /* timeline sits on page bg for better depth */
   border-radius: 12px;
@@ -275,6 +276,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   from { background-position: 0 0, 0 0; }
   to   { background-position: 0 30px, 0 0; }
 }
+
 
 /* steps column */
 .road-steps {
@@ -541,4 +543,57 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   .timeline li,
   .timeline .step-body,
   .progress-line { transition: none !important; animation: none !important; transform: none !important; }
+}
+/* Fix for oversized tracking input on iOS / mobile */
+input#tracking-input.form-control,
+input.form-control[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+
+  /* Prevent iOS Safari auto-zoom (keep at least 16px) */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+
+  /* Comfortable touch size but not oversized */
+  height: 44px;        /* Apple recommends 44px touch targets */
+  min-height: 44px;
+  padding: 8px 12px;
+  line-height: 1.15;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,32,0.06);
+  background: #fff;
+  color: #071022;
+  transition: box-shadow .16s ease, transform .12s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Focus state (keeps UX accessible) */
+input#tracking-input.form-control:focus,
+input.form-control[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 6px 20px rgba(77,20,140,0.08);
+  border-color: rgba(77,20,140,0.18);
+}
+
+/* When the form stacks on small screens, ensure spacing */
+@media (max-width: 720px) {
+  input#tracking-input.form-control,
+  input.form-control[type="text"] {
+    height: 44px;
+    padding: 10px 12px;
+    font-size: 16px; /* keep at 16px to avoid zoom */
+    border-radius: 10px;
+  }
+}
+
+/* Extra narrow phones */
+@media (max-width: 360px) {
+  input#tracking-input.form-control,
+  input.form-control[type="text"] {
+    padding: 9px 10px;
+    height: 44px;
+  }
 }
