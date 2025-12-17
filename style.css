@@ -399,6 +399,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   position:absolute;
   left: 32px;
   top: 12px;
+  color: var(--fedex-purple);
   width: 8px;
   background: linear-gradient(180deg, var(--success), var(--success-600));
   border-radius: 6px;
