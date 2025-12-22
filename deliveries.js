@@ -33,26 +33,54 @@
   // -------------------------
   const RAW_SHIPMENTS = [
 
+{
+  trackingNumber: "53215117391",
+  carrier: "FedEx",
+  from: "Atlanta, GA, United States",
+  to: "Ahmedabad, Gujarat, India",
+
+  // Real geographic coordinates
+  fromCoords: [33.7490, -84.3880],          // Atlanta, GA
+  toCoords: [23.0225, 72.5714],              // Ahmedabad, Gujarat
+
+  // Current position (final delivery location)
+  coords: [23.0225, 72.5714],
+  locationAddress: "Ahmedabad, Gujarat, India",
+
+  weight: "6.5 kg",
+  service: "FedEx International Priority",
+  estimatedDelivery: "Dec 22, 2025",
+  activeStep: 3, // Delivered
+
+  events: [
     {
-      trackingNumber: "53215117391",
-      from: "Atlanta, GA",
-      to: "New York, NY",
-      fromCoords: [33.7490, -84.3880],
-      toCoords: [40.7128, -74.0060],
-      coords: [33.7490, -84.3880],
-      locationAddress: "Atlanta, GA",
-      weight: "6.5 kg",
-      service: "Unsettled",
-      estimatedDelivery: "Oct 6, 2025",
-      activeStep: 1,
-      events: [
-        { title: "Label created", time: "Oct 1, 2025 — 09:12", details: "Label printed at origin facility" },
-        { title: "Picked up", time: "Oct 2, 2025 — 14:03", details: "Picked up by local courier" },
-        { title: "In transit", time: "Oct 5, 2025 — 11:26", details: "Departed regional hub" },
-        { title: "Out for delivery", time: "In Review", details: "" },
-        { title: "Delivered", time: "In Review", details: "" }
-      ]
+      title: "Shipment information sent to FedEx",
+      time: "Dec 21, 2025 — 08:15",
+      details: "FedEx received shipment details from shipper in Atlanta, GA"
     },
+    {
+      title: "Picked up",
+      time: "Dec 21, 2025 — 12:47",
+      details: "Package picked up by FedEx courier in Atlanta, GA"
+    },
+    {
+      title: "In transit",
+      time: "Dec 21, 2025 — 23:10",
+      details: "Departed FedEx international hub"
+    },
+    {
+      title: "Awaiting",
+      time: "Dec 22, 2025 — Awaiting",
+      details: "With FedEx courier for final delivery in Ahmedabad"
+    },
+    {
+      title: "Awaiting",
+      time: "Awaiting",
+      details: "Awaiting — signed for by recipient"
+    }
+  ]
+},
+
 
     {
       trackingNumber: "9A10123484",
