@@ -29,7 +29,8 @@
   --transition-quick: 180ms cubic-bezier(.2,.9,.25,1);
   --success: #4d148c;            /* accent used for timeline/progress */
   --success-600:#4d148c;
-  --timeline-track: #e9f6ed;     /* faint track fallback */
+  /* timeline track: now a purple-tinted gradient so the line uses brand color */
+  --timeline-track: linear-gradient(180deg, rgba(77,20,140,0.18), rgba(57,16,100,0.06));
   /* road timeline specifics */
   --road-width: 12px;
   --road-stripe: 8px;
@@ -202,7 +203,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
 
 /* ===========================
    ROAD TIMELINE (full "moving road" design)
-   ===========================
+   =========================
    Replace your existing timeline HTML with the "road" markup:
    <div class="road-timeline-wrap"> ... see docs from example ... </div>
 */
@@ -228,12 +229,13 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   border-radius: 10px;
   overflow: hidden;
   z-index: 0;
+  /* subtle textured background still visible under the tinted overlay */
   background: linear-gradient(180deg, rgba(11,12,20,0.04), rgba(11,12,20,0.02));
   display:block;
   min-height: 60vh; /* fallback; JS will adapt */
 }
 
-/* empty track pattern (muted) */
+/* empty track pattern (now tinted with brand purple) */
 .road-track::before{
   content: "";
   position: absolute;
@@ -244,7 +246,8 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
       rgba(255,255,255,0.06) 0 var(--road-stripe),
       rgba(255,255,255,0.00) var(--road-stripe) calc(var(--road-stripe) * 2)
     ),
-    linear-gradient(180deg, rgba(7,16,34,0.04), rgba(7,16,34,0.02));
+    /* colored track background using fedex purple (light tint) */
+    linear-gradient(180deg, rgba(77,20,140,0.14), rgba(57,16,100,0.05));
   z-index: 0;
   pointer-events: none;
 }
@@ -390,6 +393,7 @@ a:hover, a:focus { color: var(--fedex-purple); text-decoration: underline; outli
   bottom: 12px;
   color: #4d148c;
   width: 8px;
+  /* legacy timeline uses the new --timeline-track variable (purple-tinted) */
   background: var(--timeline-track);
   border-radius: 6px;
   transform-origin: top;
