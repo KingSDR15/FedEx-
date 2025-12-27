@@ -34,49 +34,55 @@
   const RAW_SHIPMENTS = [
 
 {
-  trackingNumber: "53215117391",
+  
+  trackingNumber: "7451517391",
   carrier: "FedEx",
-  from: "Atlanta, GA, United States",
-  to: "Ahmedabad, Gujarat, India",
+  from: "Dallas, Texas, United States",
+  to: "Los Angeles, California, United States",
 
-  // Real geographic coordinates
-  fromCoords: [33.7490, -84.3880],          // Atlanta, GA
-  toCoords: [23.0225, 72.5714],              // Ahmedabad, Gujarat
+  // Geographic coordinates matching the above cities
+  fromCoords: [32.7767, -96.7970],   // Dallas, TX
+  toCoords: [34.0522, -118.2437],    // Los Angeles, CA
 
   // Current position (final delivery location)
-  coords: [23.0225, 72.5714],
-  locationAddress: "Ahmedabad, Gujarat, India",
+  coords: [34.0522, -118.2437],
+  locationAddress: "Los Angeles, California, United States",
 
   weight: "6.5 kg",
-  service: "FedEx International Priority",
-  estimatedDelivery: "Dec 22, 2025",
-  activeStep: 3, // Delivered
+  service: "FedEx Ground",
+  estimatedDelivery: "Dec 30, 2025",
+  activeStep: 2, // 3 = Out for delivery / Delivered-waiting (keep as your original)
 
   events: [
     {
       title: "Shipment information sent to FedEx",
-      time: "Dec 21, 2025 — 08:15",
-      details: "FedEx received shipment details from shipper in Atlanta, GA"
+      time: "2025-12-25 — 08:15 (local shipper time)",
+      isoTime: "2025-12-25T08:15:00-06:00", // central US example
+      details: "FedEx received shipment details from shipper in AG GEAR"
     },
     {
       title: "Picked up",
-      time: "Dec 21, 2025 — 12:47",
-      details: "Package picked up by FedEx courier in Atlanta, GA"
+      time: "2025-12-26 — 12:47 (Dallas, TX)",
+      isoTime: "2025-12-26T12:47:00-06:00",
+      details: "Package picked up by FedEx courier in Dallas, TX"
     },
     {
       title: "In transit",
-      time: "Dec 21, 2025 — 23:10",
-      details: "Departed FedEx international hub"
+      time: "2025-12-26 — 23:10 (in transit)",
+      isoTime: "2025-12-26T23:10:00-06:00",
+      details: "Departed FedEx hub — in transit to destination"
     },
     {
-      title: "Awaiting",
-      time: "Dec 22, 2025 — Awaiting",
-      details: "With FedEx courier for final delivery in Ahmedabad"
+      title: "Out for delivery",
+      time: "2025-12-26 — 09:30 (Los Angeles, local time)",
+      isoTime: "2025-12-26T09:30:00-08:00",
+      details: "With FedEx courier for final delivery in Los Angeles, CA"
     },
     {
-      title: "Awaiting",
-      time: "Awaiting",
-      details: "Awaiting — signed for by recipient"
+      title: "Delivered",
+      time: "Awaiting confirmation",
+      isoTime: null,
+      details: "Awaiting — signature/confirmation from recipient"
     }
   ]
 },
@@ -84,7 +90,7 @@
 
     {
       trackingNumber: "9A10123484",
-      from: "San Diego, CA",
+      from: "Texas",
       to: "Austin, TX",
       fromCoords: [32.7157, -117.1611],
       toCoords: [30.2672, -97.7431],
