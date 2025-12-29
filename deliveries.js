@@ -34,55 +34,58 @@
   const RAW_SHIPMENTS = [
 
 {
-  
-  trackingNumber: "7451517391",
-  carrier: "FedEx",
-  from: "Dallas, Texas, United States",
-  to: "Los Angeles, California, United States",
 
-  // Geographic coordinates matching the above cities
+  trackingNumber: "74512317391",
+  carrier: "FedEx",
+  shipper: "theBalm Cosmetics",
+  receiver: "Malina Lahr",
+  from: "Dallas, Texas, United States",
+  to: "Wisconsin, United States",
+
+  // Geographic coordinates (approximate)
   fromCoords: [32.7767, -96.7970],   // Dallas, TX
-  toCoords: [34.0522, -118.2437],    // Los Angeles, CA
+  toCoords: [44.5000, -89.5000],     // Central Wisconsin (approx.)
 
   // Current position (final delivery location)
-  coords: [34.0522, -118.2437],
-  locationAddress: "Los Angeles, California, United States",
+  coords: [44.5000, -89.5000],
+  locationAddress: "Wisconsin, United States",
 
-  weight: "6.5 kg",
+  weight: "5.6 kg",
   service: "FedEx Ground",
+  pickupDate: "Dec 27, 2025 — 15:00 (local time)",
   estimatedDelivery: "Dec 30, 2025",
-  activeStep: 2, // 3 = Out for delivery / Delivered-waiting (keep as your original)
+  activeStep: 2, // 3 = Out for delivery / Delivered-waiting
 
   events: [
     {
       title: "Shipment information sent to FedEx",
       time: "2025-12-25 — 08:15 (local shipper time)",
-      isoTime: "2025-12-25T08:15:00-06:00", // central US example
-      details: "FedEx received shipment details from shipper in AG GEAR"
+      isoTime: "2025-12-25T08:15:00-06:00",
+      details: "FedEx received preliminary shipment details from theBalm Cosmetics."
     },
     {
       title: "Picked up",
-      time: "2025-12-26 — 12:47 (Dallas, TX)",
-      isoTime: "2025-12-26T12:47:00-06:00",
-      details: "Package picked up by FedEx courier in Dallas, TX"
+      time: "2025-12-27 — 15:00 (Dallas, TX)",
+      isoTime: "2025-12-27T15:00:00-06:00",
+      details: "Package collected by FedEx courier in Dallas, Texas."
     },
     {
       title: "In transit",
-      time: "2025-12-26 — 23:10 (in transit)",
-      isoTime: "2025-12-26T23:10:00-06:00",
-      details: "Departed FedEx hub — in transit to destination"
+      time: "2025-12-27 — 23:10 (in transit)",
+      isoTime: "2025-12-27T23:10:00-06:00",
+      details: "Departed FedEx sorting hub — currently in transit to Wisconsin."
     },
     {
       title: "Out for delivery",
-      time: "2025-12-26 — 09:30 (Los Angeles, local time)",
-      isoTime: "2025-12-26T09:30:00-08:00",
-      details: "With FedEx courier for final delivery in Los Angeles, CA"
+      time: "2025-12-30 — 09:30 (local time)",
+      isoTime: "2025-12-30T09:30:00-06:00",
+      details: "With FedEx courier for final delivery in Wisconsin."
     },
     {
       title: "Delivered",
       time: "Awaiting confirmation",
       isoTime: null,
-      details: "Awaiting — signature/confirmation from recipient"
+      details: "Awaiting recipient signature/confirmation — delivery in progress."
     }
   ]
 },
